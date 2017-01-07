@@ -39,17 +39,54 @@ router.get('/getCartDataById', function(req, res, next) {
 
 });
 
-router.post('/addToCart', function(req, res, next) {
-    var cart = new Cart(req.body);
-    var query = {_id:req.body._id};
-    Cart.findOneAndUpdate(query,req.body,{upsert:true,new: true},function(err, cart) {
+var getKartDataById = function(req, res, next){
+
+    var id = req.body._id ;
+    var items = req.body.items[0];
+
+    Cart.findById(id, function(err, result) {
+        if (err) {
+            return next(err);
+        }
+        console.log("items : "+ items);
+        if(result){
+            result.items.push(items);
+            req.kartData = result;
+        }else{
+            req.kartData = req.body;
+        }
+        console.log("result : "+ result);
+        console.log("req.kartData : "+ req.kartData);
+        next();
+    });
+}
+
+var saveKartData = function(req, res, next){
+
+    var query = {_id:req.kartData._id};
+    Cart.findOneAndUpdate(query,req.kartData,{upsert:true,new: true},function(err, cart) {
         if (err) {
             return next(err);
         }
 
         res.json(cart);
+        // next();
     });
-});
+}
+
+router.post('/addToCart', [ getKartDataById,saveKartData ] );
+
+// router.post('/addToCart', function(req, res, next) {
+//     var cart = new Cart(req.body);
+//     var query = {_id:req.body._id};
+//     Cart.findOneAndUpdate(query,req.body,{upsert:true,new: true},function(err, cart) {
+//         if (err) {
+//             return next(err);
+//         }
+
+//         res.json(cart);
+//     });
+// });
 
 router.get('/posts', function(req, res, next) {
     // var queryParam = {

@@ -48,6 +48,44 @@
 
                 };
 
+                $scope.addToKart = function(product) {
+
+                    var kartObj = {
+                        brandId: product.brandId,
+                        productId: product.productId,
+                        bucketId: product.bucketId,
+                        subcategoryId: product.subCategoryId,
+                        brandName: product.brandName,
+                        productName: product.productName,
+                        mrp: product.mrp,
+                        url: product.url,
+                        imageUrl: product.imageUrl,
+                        quantity: 1
+                    }
+
+                    var kartItems = [];
+                    kartItems.push(kartObj);
+
+                    network_service.POST({
+                        url: 'addToCart',
+                        data: {
+                            _id: 'shu.ro@gmail.com',
+                            items: kartItems
+                        }
+                        // formPOST: true
+                    }).then(function(response) {
+                        if (response.status === 200) {
+                            // $scope.brandSellerInfo.jiraData = {
+                            //     jiraUrl: response.data.jiraUrl,
+                            //     jiraId: response.data.jiraId
+                            // };
+                            // var jiraMessage = 'Jira has been Created : ' + '<a href=' + $scope.brandSellerInfo.jiraData.jiraUrl + ' target="_blank">' + $scope.brandSellerInfo.jiraData.jiraId + '</a>';
+                            // $rootScope.showPopupMessage('Jira Created', 'Seller Jira Created', jiraMessage);
+
+                        }
+                    });
+                }
+
                 init();
 
             }
