@@ -20,11 +20,33 @@
                     totalPages: 0,
                     pageNo: 1,
                     pageSize: 20,
+                    kartdata: []
                 };
 
+                var kartProducts = {};
+
                 var init = function() {
-                    $scope.getCatlogData();
+                    $scope.getKartData();
                 }
+
+                $scope.getKartData = function() {
+                    network_service.GET({
+                        url: 'getCartDataById',
+                        params: {
+                            id: 'shu.ro@gmail.com'
+                        }
+                    }).then(function(response) {
+                        if (response.status === 200) {
+                            $scope.catalog.kartdata = response.data.items;
+                            kartProducts = {};
+                            for (var i = 0; i < $scope.catalog.kartdata.length; i++) {
+                                var item = $scope.catalog.kartdata[i];
+                                kartProducts[item.productId] = item.quantity;
+                            }
+                            $scope.getCatlogData();
+                        }
+                    })
+                };
 
                 $scope.getCatlogData = function() {
 
@@ -38,6 +60,14 @@
                         if (response.status === 200) {
                             $scope.catalog.productList = response.data.docs;
                             $scope.catalog.totalProduct = response.data.total;
+                            for (var i = 0; i < $scope.catalog.productList.length; i++) {
+                                var product = $scope.catalog.productList[i];
+                                if (kartProducts[product.productId]) {
+                                    product.quantity = kartProducts[product.productId];
+                                } else {
+                                    product.quantity = 0;
+                                }
+                            }
 
                         }
 
@@ -75,13 +105,13 @@
                         // formPOST: true
                     }).then(function(response) {
                         if (response.status === 200) {
-                            // $scope.brandSellerInfo.jiraData = {
-                            //     jiraUrl: response.data.jiraUrl,
-                            //     jiraId: response.data.jiraId
-                            // };
-                            // var jiraMessage = 'Jira has been Created : ' + '<a href=' + $scope.brandSellerInfo.jiraData.jiraUrl + ' target="_blank">' + $scope.brandSellerInfo.jiraData.jiraId + '</a>';
-                            // $rootScope.showPopupMessage('Jira Created', 'Seller Jira Created', jiraMessage);
-
+                            $scope.catalog.kartdata = response.data.items;
+                            kartProducts = {};
+                            for (var i = 0; i < $scope.catalog.kartdata.length; i++) {
+                                var item = $scope.catalog.kartdata[i];
+                                kartProducts[item.productId] = item.quantity;
+                            }
+                            $scope.getCatlogData();
                         }
                     });
                 }

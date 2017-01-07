@@ -723,3 +723,11 @@
         white-space: nowrap;
     }
     /*==========================brandGapProduct Listing Ends============================*/
+
+    /*===========================kartProductListing Starts===============================*/
+    #kartProductListing .selectedImageLarge {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        text-align: center;
+    }
+    /*===========================kartProductListing Ends=================================/
