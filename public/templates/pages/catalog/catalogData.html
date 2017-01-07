@@ -1,0 +1,23 @@
+<div id="brandProductCountListing" class="well well-sm bg_white">
+    <div class="productListFrame " ng-repeat="product in catalog.productList ">
+        <div class="text-center">
+            <div>
+                <a href="{{product.url}}" target="_blank" style="cursor: pointer">
+                    <div ng-if="product.imageUrl" class="placeholder" ng-style="{'background-image':'url({{product.imageUrl}})'}"></div>
+                    <div ng-if="!product.imageUrl" class="placeholder">
+                    </div>
+                    <!-- <span class="text-danger out_of_stock" ng-if="product.inventory === 0 && brandProdData.vendor.id == 'sd'">Out of Stock</span> -->
+                    <label class="productTitle">{{product.productName | limitTo : 35}}</label>
+                </a>
+            </div>
+            <div class="row">
+                <button class="btn btn-default btn-xs" ng-click="addToCart(product)" style="width: 120px;">Add To Cart</button>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center mar_top_10" style="margin-right:0; margin-left:0;margin-bottom: 10px;">
+        <div class="mar_top_10">
+            <uib-pagination boundary-links="true" total-items="catalog.totalProduct" items-per-page="catalog.pageSize" ng-model="catalog.pageNo" max-size=10 class="pagination-sm " previous-text="&lsaquo; " next-text="&rsaquo; " first-text="&laquo; " last-text="&raquo; " ng-change="getCatlogData()" style="margin:0px; "></uib-pagination>
+        </div>
+    </div>
+</div>
