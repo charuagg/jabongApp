@@ -2,7 +2,7 @@
     angular
         .module("JabongApp")
         .factory("network_service", ['$rootScope', '$http', 'EP', "$timeout", "$q", function($rootScope, $http, EP, $timeout, $q) {
-            var server = EP.getAPIEndpoint(); // Use this for staging / production only
+            var server = EP.getAPIEndpoint(); 
             var toQueryParams = function(queryObj, isFormPOST) {
                 var query = "",
                     a = "";
@@ -87,12 +87,6 @@
                         if (options.url !== 'user' || response.errorCode === 500) {
                             $rootScope.showPopupMessage('error', 'Error Occured', error.errorMessage, ' Status Code: ' + error.statusCode);
                         }
-                        if (error.statusCode === 401) {
-                            $rootScope.user = {};
-                            $rootScope.isAuthenticated = false;
-                            localStorage.setItem('location', '');
-                            window.location.href = "#login";
-                        }
                     }
                     return response;
                 });
@@ -125,12 +119,6 @@
                     if (!options.silent && !(options && options.ignore_errorCode && options.ignore_errorCode.indexOf(response.status) > -1)) {
                         var error = getErrorMessage(response);
                         $rootScope.showPopupMessage('error', 'Error Occured', error.errorMessage, ' Status Code: ' + error.statusCode);
-                        if (error.statusCode === 401) {
-                            $rootScope.user = {};
-                            $rootScope.isAuthenticated = false;
-                            localStorage.setItem('location', '');
-                            window.location.href = "#login";
-                        }
                     }
                     return response;
                 });
