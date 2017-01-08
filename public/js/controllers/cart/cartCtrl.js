@@ -3,48 +3,121 @@
         .module("JabongApp")
         .controller("cartCtrl", ['$rootScope', '$timeout', 'network_service', '$scope', '$location', '$window', '$routeParams',
             function($rootScope, $timeout, network_service, $scope, $location, $window, $routeParams) {
-                _this = this;
 
-                var urlData = angular.copy($routeParams);
-
-                $scope.urlParamsData = {
-                    categoryId: urlData.categoryId ? urlData.categoryId : '17',
-                    // categoryName: urlData.categoryName,
-                    subCategoryId: urlData.subCategoryId ? urlData.subCategoryId : '194',
-                    // subCategoryName: urlData.subCategoryName,
-                    bucketId: urlData.bucketId ? urlData.bucketId : '1013'
-                }
-
-                $scope.catalog = {
+                $scope.cart = {
                     productList: [],
                     totalPages: 0,
                     pageNo: 1,
-                    pageSize: 20,
+                    pageSize: 3,
+                    totalAmount: 0,
                 };
 
                 var init = function() {
-                    $scope.getCatlogData();
+                    $scope.getKartData();
                 }
 
-                $scope.getCatlogData = function() {
+                $scope.editQuantity = function(product) {
+                    product.isEdit = true;
 
+
+                };
+
+                $scope.saveItemQuantity = function(product) {
+                    product.isEdit = false;
+                    network_service.POST({
+                        url: 'changeQuantity',
+                        data: {
+                            _id: 'shu.ro@gmail.com',
+                            item: product
+                        }
+                        // formPOST: true
+                    }).then(function(response) {
+                        if (response.status === 200) {
+                            $scope.getKartData();
+                        }
+                    });
+                };
+
+                $scope.deleteKartItem = function(product) {
+                    network_service.POST({
+                        url: 'removeItemFromCart',
+                        data: {
+                            _id: 'shu.ro@gmail.com',
+                            item: product
+                        }
+                        // formPOST: true
+                    }).then(function(response) {
+                        if (response.status === 200) {
+                            $scope.getKartData();
+                        }
+                    });
+                };
+
+                $scope.getKartData = function() {
                     network_service.GET({
-                        url: 'getbrandCatalogData',
+                        url: 'getCartDataById',
                         params: {
-                            pageNo: $scope.catalog.pageNo,
-                            pageSize: $scope.catalog.pageSize
+                            id: 'shu.ro@gmail.com'
                         }
                     }).then(function(response) {
                         if (response.status === 200) {
-                            $scope.catalog.productList = response.data.docs;
-                            $scope.catalog.totalPages = response.data.total;
-
+                            $scope.cart.kartdata = response.data.items;
+                            $scope.cart.totalProduct = response.data.items.length;
+                            for (var i = 0; i < $scope.cart.kartdata.length; i++) {
+                                $scope.cart.kartdata[i].isEdit = false;
+                                $scope.cart.totalAmount += $scope.cart.kartdata[i].quantity * $scope.cart.kartdata[i].mrp;
+                            }
+                            $scope.getPaginatedKartData();
                         }
-
-                        // $("body").animate({
-                        //     scrollTop: 0,
-                        // }, 1000);
                     })
+                };
+
+                $scope.placeOrder = function() {
+
+                    var orderData = [];
+                    for (var i = 0; i < $scope.cart.kartdata.length; i++) {
+                        var kartData = $scope.cart.kartdata[i];
+                        var obj = {
+                            brandId: kartData.brandId,
+                            productId: kartData.productId,
+                            bucketId: kartData.bucketId,
+                            subcategoryId: kartData.subCategoryId,
+                            brandName: kartData.brandName,
+                            productName: kartData.productName,
+                            mrp: kartData.mrp,
+                            url: kartData.url,
+                            imageUrl: kartData.imageUrl,
+                            quantity: kartData.quantity
+                        };
+
+                        orderData.push(obj);
+                    }
+
+                    network_service.POST({
+                        url: 'addToOrder',
+                        data: {
+                            userId: 'shu.ro@gmail.com',
+                            items: orderData,
+                        }
+                        // formPOST: true
+                    }).then(function(response) {
+                        if (response.status === 200) {
+                            $location.path('/catalog');
+                            $rootScope.showPopupMessage('Order Placed', 'Order Placed','Order has been successfully Placed' ,'' );
+                        }
+                    });
+                };
+
+                $scope.getPaginatedKartData = function() {
+                    $scope.cart.kartdataToDisplay = [];
+                    var offset = ($scope.cart.pageNo - 1) * $scope.cart.pageSize,
+                        limit = $scope.cart.pageSize;
+
+                    $scope.cart.kartdataToDisplay = $scope.cart.kartdata.slice(offset, offset + limit);
+
+                    $("body").animate({
+                        scrollTop: 0,
+                    }, 1000);
 
                 };
 

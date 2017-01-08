@@ -7,6 +7,7 @@ require('./models/post');
 require('./models/comment');
 require('./models/catalog');
 require('./models/cart');
+require('./models/order');
 mongoose.connect('mongodb://localhost/news');
 
 var logger = require('morgan');

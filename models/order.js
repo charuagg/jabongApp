@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 var mongoosePaginate = require('mongoose-paginate');
 
-var CartSchema = new mongoose.Schema({
-    _id: String,
+var OrderSchema = new mongoose.Schema({
+    userId: String,
     items: [{
-    	brandId : String,
+        brandId : String,
         productId: String,
         bucketId : String,
         subcategoryId : Number,
@@ -18,6 +18,6 @@ var CartSchema = new mongoose.Schema({
     created: { type: Date, default: Date.now }
 });
 
-CartSchema.plugin(mongoosePaginate);
+OrderSchema.plugin(mongoosePaginate);
 
-mongoose.model('Cart', CartSchema);
+mongoose.model('Order', OrderSchema);

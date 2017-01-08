@@ -11,7 +11,9 @@
                 </a>
             </div>
             <div class="row">
-                <button class="btn btn-default btn-xs" ng-click="addToCart(product)" style="width: 120px;">Add To Cart</button>
+                <button class="btn btn-default btn-xs" ng-show="product.quantity === 0" ng-click="addToKart(product)" style="width: 120px;">Add To Cart</button>
+                <img src="../images/kartBag.png" ng-show="product.quantity > 0" style="height: 20px;"/>
+                <button class="btn btn-default btn-xs" ng-show="product.quantity > 0" ng-click="redirectToKart()" style="width: 120px;">Go To Kart</button>
             </div>
         </div>
     </div>

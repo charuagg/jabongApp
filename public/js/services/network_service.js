@@ -1,16 +1,8 @@
-/*
- *  @author Aviral Jain
- */
-
 (function() {
     angular
         .module("JabongApp")
         .factory("network_service", ['$rootScope', '$http', 'EP', "$timeout", "$q", function($rootScope, $http, EP, $timeout, $q) {
             var server = EP.getAPIEndpoint(); // Use this for staging / production only
-            /*
-             * @author Aviral Jain
-             * @params queryObj - query params in form of simple object
-             */
             var toQueryParams = function(queryObj, isFormPOST) {
                 var query = "",
                     a = "";
