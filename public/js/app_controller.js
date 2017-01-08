@@ -3,19 +3,13 @@
         .module("JabongApp")
         .controller('JabongAppCtrl', ['$scope', '$rootScope', '$location', 'network_service', '$log', '$http', '$timeout',
             function($scope, $RS, $location, network_service, $log, $http, $timeout) {
-                var _this = this;
                 $scope.isLoading = 0;
-
-
-                $scope.data = {};
 
                 $scope.popUpMessageDetails = {};
                 $scope.popUpMessageDetails.typeOfMessage = {};
                 $scope.popUpMessageDetails.message = {};
                 $scope.popUpMessageDetails.tittle = {};
                 $scope.popUpMessageDetails.statusCode = {};
-                $RS.isAuthenticated = true;
-
                 
                 $scope.init = function() {
                     $location.path('/catalog');
@@ -45,7 +39,6 @@
                         Message: message,
                         StatusCode: statusCode
                     };
-                    // console.log("Error Object : " + JSON.stringify(errorOBj));
                     $('#popUpMessage').modal('show');
                 }
 
@@ -57,26 +50,6 @@
                         }
                     }, 200);
                 }
-
-                $RS.MatchshowPopupMessage = function(type, tittle, message, statusCode) {
-                    $scope.popUpMessageDetails.typeOfMessage = type;
-                    $scope.popUpMessageDetails.message = message;
-                    $scope.popUpMessageDetails.tittle = tittle;
-                    $scope.popUpMessageDetails.statusCode = statusCode;
-                    $('#MatchpopUpMessage').modal('show');
-                }
-
-                $RS.MatchhidePopupMessage = function() {
-                    $('#MatchpopUpMessage').modal('hide');
-                }
-
-                $scope.toObject = function(arr) {
-                    var rv = {};
-                    for (var i = 0; i < arr.length; ++i) {
-                        rv[arr[i]] = true;
-                    }
-                    return rv;
-                };
 
                 $scope.init();
             }
