@@ -3,17 +3,6 @@
         .module("JabongApp")
         .controller("catalogCtrl", ['$rootScope', '$timeout', 'network_service', '$scope', '$location', '$window', '$routeParams',
             function($rootScope, $timeout, network_service, $scope, $location, $window, $routeParams) {
-                _this = this;
-
-                var urlData = angular.copy($routeParams);
-
-                $scope.urlParamsData = {
-                    categoryId: urlData.categoryId ? urlData.categoryId : '17',
-                    // categoryName: urlData.categoryName,
-                    subCategoryId: urlData.subCategoryId ? urlData.subCategoryId : '194',
-                    // subCategoryName: urlData.subCategoryName,
-                    bucketId: urlData.bucketId ? urlData.bucketId : '1013'
-                }
 
                 $scope.catalog = {
                     productList: [],
@@ -115,6 +104,12 @@
                         }
                     });
                 }
+
+                $scope.redirectToKart = function() {
+
+                    $location.path('/cart');
+                }
+
 
                 init();
 

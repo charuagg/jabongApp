@@ -18,8 +18,8 @@
 
                 
                 $scope.init = function() {
-
-                };
+                    $location.path('/catalog');
+                };  
 
                 $RS.showLoading = function() {
                     $("#preloaderdiv").css('top', window.pageYOffset + "px");

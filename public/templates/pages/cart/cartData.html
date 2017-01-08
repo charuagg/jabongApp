@@ -1,7 +1,7 @@
 <div id="kartProductListing" class="well well-sm bg_white">
     <div class="row">
         <div class="col-md-8">
-            <div class="well well-sm bg_white col-md-12 mar_l_10" ng-repeat="product in cart.kartdata">
+            <div class="well well-sm bg_white col-md-12 mar_l_10" ng-repeat="product in cart.kartdataToDisplay">
                 <div class="col-md-12 " style="height : 150px">
                     <div class="col-md-4">
                         <div class="selectedImageLarge" style="height : 150px; width: 100px;">
@@ -15,15 +15,44 @@
                             </a>
                         </header>
                         <div class="row mar_top_10">
+                            <div class="col-md-10" style="padding-left: 0px;">
+                                <span class="col-md-6" ng-if="!product.isEdit">Quantity : {{product.quantity}}</span>
+                                <span ng-if="product.isEdit" class="col-md-12 class=" form-inline "">
+                                    <span class="col-md-5" style="padding-left: 0px;">
+                                        Quantity :
+                                    </span>
+                                <span class="col-md-4"> 
+                                        <input class="form-control input-xs" placeholder="Enter quantity" ng-model="product.quantity" />
+                                    </span>
+                                <button class="btn btn-default btn-xs" ng-show="product.quantity > 0" ng-click="saveItemQuantity(product)" style="">Save</button>
+                                </span>
+                                <button class="btn btn-default btn-xs" ng-show="product.quantity > 0 && !product.isEdit" ng-click="editQuantity(product)" style="">Edit</button>
+                            </div>
                             <div class="col-md-10">
-                                Quantity : {{product.quantity}}
+                                MRP: {{product.mrp}}
+                            </div>
+                            <div class="col-md-10" style="margin-top: 30px;">
+                                <button class="btn btn-default btn-xs" ng-click="deleteKartItem(product)" style="">Delete</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row text-center mar_top_10" style="margin-right:0; margin-left:0;margin-bottom: 10px;">
+                <div class="mar_top_10">
+                    <uib-pagination boundary-links="true" total-items="cart.totalProduct" items-per-page="cart.pageSize" ng-model="cart.pageNo" max-size=10 class="pagination-sm " previous-text="&lsaquo; " next-text="&rsaquo; " first-text="&laquo; " last-text="&raquo; " ng-change="getPaginatedKartData()" style="margin:0px; "></uib-pagination>
+                </div>
+            </div>
         </div>
-        <div class="well well-sm bg_white col-md-3 pull-right " style="margin-right: 40px;">
+        <div class="well well-sm bg_white col-md-3 pull-right " style="margin-right: 40px;height: 100px;">
+            <div class="text-center">
+                <header>
+                    Total Amount : {{cart.totalAmount}}
+                </header>
+            </div>
+            <div class="text-center mar_top_10">
+                <button class="btn btn-default" ng-click="placeOrder()" style="">Place Order</button>
+            </div>
         </div>
     </div>
 </div>
