@@ -17,14 +17,14 @@
                         <div class="row mar_top_10">
                             <div class="col-md-10" style="padding-left: 0px;">
                                 <span class="col-md-6" ng-if="!product.isEdit">Quantity : {{product.quantity}}</span>
-                                <span ng-if="product.isEdit" class="col-md-12 class=" form-inline "">
+                                <span ng-if="product.isEdit" class="col-md-12">
                                     <span class="col-md-5" style="padding-left: 0px;">
                                         Quantity :
                                     </span>
                                 <span class="col-md-4"> 
                                         <input class="form-control input-xs" placeholder="Enter quantity" ng-model="product.quantity" />
                                     </span>
-                                <button class="btn btn-default btn-xs" ng-show="product.quantity > 0" ng-click="saveItemQuantity(product)" style="">Save</button>
+                                <button class="btn btn-default btn-xs" ng-show="product.isEdit" ng-click="saveItemQuantity(product)" style="">Save</button>
                                 </span>
                                 <button class="btn btn-default btn-xs" ng-show="product.quantity > 0 && !product.isEdit" ng-click="editQuantity(product)" style="">Edit</button>
                             </div>

@@ -18,8 +18,6 @@
 
                 $scope.editQuantity = function(product) {
                     product.isEdit = true;
-
-
                 };
 
                 $scope.saveItemQuantity = function(product) {
@@ -54,6 +52,9 @@
                 };
 
                 $scope.getKartData = function() {
+
+                    $scope.cart.totalAmount = 0;
+
                     network_service.GET({
                         url: 'getCartDataById',
                         params: {
@@ -103,7 +104,7 @@
                     }).then(function(response) {
                         if (response.status === 200) {
                             $location.path('/catalog');
-                            $rootScope.showPopupMessage('Order Placed', 'Order Placed','Order has been successfully Placed' ,'' );
+                            $rootScope.showPopupMessage('Order Placed', 'Order Placed', 'Order has been successfully Placed', '');
                         }
                     });
                 };

@@ -14,7 +14,6 @@
 
 <body ng-controller="JabongAppCtrl" ng-cloak>
     <div class="container">
-        <!--{{isLoading ? 'hidden' : ''}}-->
         <nav class="navbar navbar-default" style="border-top-left-radius: 0;border-top-right-radius: 0;background: #fff;margin-bottom: 10px;">
             <div class="">
                 <div class="navbar-header">
@@ -22,29 +21,14 @@
                     </a>
                 </div>
                 <div class="collapse navbar-collapse">
-                    <!-- <ul class="nav navbar-nav">
-                        <li class="dropdown {{nav.navParent.disabled ? 'disabled' : ''}} {{nav.navParent.active ? 'active' : ''}}" ng-if="nav.navParent.navChilds && nav.navParent.navChilds.length !== 0" ng-repeat="nav in navBarData"><a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                            {{nav.navParent.name}}
-                        <span class="caret" ></span></a>
-                            <ul class="dropdown-menu pad_0">
-                                <li ng-repeat="navChild in nav.navParent.navChilds" class="{{navChild.disabled ? 'disabled' : ''}} {{navChild.active ? 'active' : ''}}" style="border-bottom: 1px solid #efefef;">
-                                    <a href='{{"#"+navChild.value}}'>{{navChild.name}}</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li ng-if="nav.navParent.navChilds && nav.navParent.navChilds.length === 0" ng-click="setActive(nav.navParent.name)" class="dropdown {{nav.navParent.disabled ? 'disabled' : ''}} {{nav.navParent.active ? 'active' : ''}}" ng-repeat="nav in navBarData"><a href="#{{nav.navParent.value}}" class="dropdown-toggle">{{nav.navParent.name}}</a></li>
-                    </ul> -->
                     <ul class="nav navbar-nav navbar-right">
                         <a class="navbar-brand jabongKart"> 
                     </a>
                     </ul>
                 </div>
-                <!-- /.navbar-collapse -->
             </div>
-            <!-- /.container-fluid -->
         </nav>
         <div class="clearfix"></div>
-        <!--class="{{isLoading ? 'hidden' : ''}}"-->
         <div id="main">
             <div ng-view class="view-animate"></div>
         </div>
@@ -92,14 +76,9 @@
     <script type="text/javascript" src="js/controllers/signup.js"></script>
     <script type="text/javascript" src="js/controllers/catalog/catalogCtrl.js"></script>
     <script type="text/javascript" src="js/controllers/cart/cartCtrl.js"></script>
-
     <!-- angular helper services -->
     <script type="text/javascript" src="js/services/network_service.js"></script>
     <script type="text/javascript" src="js/services/endpoint_service.js"></script>
-    <!-- @endif -->
-    <!-- @if NODE_ENV == 'PRODUCTION' -->
-    <script type="text/javascript" src="js/min/app.min.js"></script>
-    <!-- @endif -->
 </body>
 
 </html>

@@ -6,7 +6,6 @@
                     <div ng-if="product.imageUrl" class="placeholder" ng-style="{'background-image':'url({{product.imageUrl}})'}"></div>
                     <div ng-if="!product.imageUrl" class="placeholder">
                     </div>
-                    <!-- <span class="text-danger out_of_stock" ng-if="product.inventory === 0 && brandProdData.vendor.id == 'sd'">Out of Stock</span> -->
                     <label class="productTitle">{{product.productName | limitTo : 35}}</label>
                 </a>
             </div>
