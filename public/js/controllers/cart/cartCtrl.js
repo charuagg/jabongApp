@@ -15,7 +15,7 @@
                     bucketId: urlData.bucketId ? urlData.bucketId : '1013'
                 }
 
-                $scope.catalog = {
+                $scope.cart = {
                     productList: [],
                     totalPages: 0,
                     pageNo: 1,
@@ -23,29 +23,21 @@
                 };
 
                 var init = function() {
-                    $scope.getCatlogData();
+                    $scope.getKartData();
                 }
 
-                $scope.getCatlogData = function() {
-
+                $scope.getKartData = function() {
                     network_service.GET({
-                        url: 'getbrandCatalogData',
+                        url: 'getCartDataById',
                         params: {
-                            pageNo: $scope.catalog.pageNo,
-                            pageSize: $scope.catalog.pageSize
+                            id: 'shu.ro@gmail.com'
                         }
                     }).then(function(response) {
                         if (response.status === 200) {
-                            $scope.catalog.productList = response.data.docs;
-                            $scope.catalog.totalPages = response.data.total;
-
+                            $scope.cart.kartdata = response.data.items;
+                            
                         }
-
-                        // $("body").animate({
-                        //     scrollTop: 0,
-                        // }, 1000);
                     })
-
                 };
 
                 init();

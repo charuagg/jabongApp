@@ -1,5 +1,29 @@
-<div>
-    <div>
-        PAGAL
+<div id="kartProductListing" class="well well-sm bg_white">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="well well-sm bg_white col-md-12 mar_l_10" ng-repeat="product in cart.kartdata">
+                <div class="col-md-12 " style="height : 150px">
+                    <div class="col-md-4">
+                        <div class="selectedImageLarge" style="height : 150px; width: 100px;">
+                            <img id="imageId{{$index}}" ng-src="{{product.imageUrl}}" ng-show="product.imageUrl" style="height : 140px;" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <header>
+                            <a href="http://www.amazon.in/GP/dp/{{product.productId}}" target="_blank">
+                                {{product.productName}}
+                            </a>
+                        </header>
+                        <div class="row mar_top_10">
+                            <div class="col-md-10">
+                                Quantity : {{product.quantity}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="well well-sm bg_white col-md-3 pull-right " style="margin-right: 40px;">
+        </div>
     </div>
 </div>
